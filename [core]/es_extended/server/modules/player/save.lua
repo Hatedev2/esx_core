@@ -29,14 +29,16 @@ end
 ---@param xPlayer table
 ---@return table
 local function buildSaveParameters(xPlayer)
+    -- hate-dzinventory persists items in its own tables; never mirror them into users.inventory/loadout.
+    local externalInventory = Config.CustomInventory == "hate-dzinventory"
     return {
         json.encode(xPlayer.getAccounts(true)),
         xPlayer.job.name,
         xPlayer.job.grade,
         xPlayer.group,
         json.encode(xPlayer.getCoords(false, true)),
-        json.encode(xPlayer.getInventory(true)),
-        json.encode(xPlayer.getLoadout(true)),
+        json.encode(externalInventory and {} or xPlayer.getInventory(true)),
+        json.encode(externalInventory and {} or xPlayer.getLoadout(true)),
         json.encode(xPlayer.getMeta()),
         xPlayer.identifier,
     }

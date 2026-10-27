@@ -12,7 +12,8 @@ Config.Locale = (esxLocale ~= "invalid") and esxLocale or (txAdminLocale ~= "cus
 -- to keep the placeholder (useful when authoring a new translation).
 Config.LocaleFallback = GetConvar("esx:localeFallback", "true") ~= "false"
 
--- For ox inventory, this will automatically be adjusted, do not change! For other inventories, leave as false unless specifically instructed to change.
+-- For ox_inventory and hate-dzinventory this is set automatically at the bottom of this file, do not change!
+-- For other inventories, leave as false unless specifically instructed to change.
 Config.CustomInventory = false
 
 Config.Accounts = {
@@ -123,7 +124,9 @@ Config.AdminLogging = false -- Logs the usage of certain commands by those with 
 -------------------------------------
 -- DO NOT CHANGE BELOW THIS LINE !!!
 -------------------------------------
-if GetResourceState("ox_inventory") ~= "missing" then
+if GetResourceState("hate-dzinventory") ~= "missing" then
+    Config.CustomInventory = "hate-dzinventory"
+elseif GetResourceState("ox_inventory") ~= "missing" then
     Config.CustomInventory = "ox"
 end
 

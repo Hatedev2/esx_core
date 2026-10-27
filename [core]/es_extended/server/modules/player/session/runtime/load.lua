@@ -98,7 +98,8 @@ local function loadPlayer(identifier, playerId, isNew, loading)
         local inventory = decodeJsonObject(result.inventory, {})
 
         userData.inventory, userData.weight = Core.PlayerClass.BuildInventory(inventory)
-    elseif result.inventory and result.inventory ~= '' then
+    elseif Config.CustomInventory ~= 'hate-dzinventory' and result.inventory and result.inventory ~= '' then
+        -- hate-dzinventory loads its own rows from hate_zinventory_items.
         userData.inventory = json.decode(result.inventory)
     end
 
